@@ -1,6 +1,3 @@
-# fish_market_data_analysis_aashi.py
-# Cleaned version for local use in VS Code
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -10,19 +7,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-# Download the dataset (only runs once)
 od.download("https://www.kaggle.com/datasets/vipullrathod/fish-market/data")
 
-# Load dataset
 dataset = pd.read_csv("fish-market/Fish.csv")
 
-# Q1: Scatter plot (Species vs Length1)
+#  Scatter plot (Species vs Length1)
 alt.Chart(dataset).mark_circle().encode(
     x='Species',
     y='Length1'
 ).interactive()
 
-# Q2: Add noise to 'Weight' and evaluate regression performance
+#  Add noise to 'Weight' and evaluate regression performance
 noise_level = 100
 noise = np.random.normal(0, noise_level, size=len(dataset))
 dataset['Weight_noisy'] = dataset['Weight'] + noise
@@ -57,7 +52,7 @@ alt.Chart(dataset).mark_circle().encode(
     y='Weight_noisy'
 ).interactive()
 
-# Q1 (Alternative): Scatter plots of all parameters vs Species
+#  Scatter plots of all parameters vs Species
 parameters = ['Length1', 'Length2', 'Length3', 'Height', 'Width']
 colors = ['red', 'green', 'blue', 'orange', 'purple']
 
@@ -73,7 +68,6 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 
-# Q2 (Improved): Add noise to each feature and analyze regression performance
 for param in parameters:
     noise = np.random.normal(0, 10, size=len(dataset))
     dataset[param + '_noisy'] = dataset[param] + abs(noise)
